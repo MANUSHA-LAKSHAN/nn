@@ -127,25 +127,10 @@
         const IS_HLS = 0 === 1;
         const HAS_DRM = 1 === 1;
 
-        const gateTimer = setInterval(() => {
-            w--;
-            document.getElementById('progress-fill').style.width = ((6-w)/6*100) + "%";
-            if(w <= 0) {
-                clearInterval(gateTimer);
-                isReady = true;
-                document.getElementById('action-btn').classList.add('ready');
-                document.getElementById('action-btn').innerHTML = 'START STREAMING';
-            }
-        }, 1000);
+        
 
-        function handleAuthorize() {
-            if(!isReady) return;
-            window.open('https://www.effectivegatecpm.com/r01ji1qs?key=230df895c8660a3526b18caa5a051add', '_blank');
-            document.getElementById('app-gate').style.display = 'none';
-            document.getElementById('loader-screen').style.display = 'flex';
-            setTimeout(initPlayer, 1500);
-        }
-
+        
+    
         async function initPlayer() {
             shaka.polyfill.installAll();
             const video = document.getElementById('video');
