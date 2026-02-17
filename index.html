@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Sirasa TV | Zerocast</title>
+    <title>Nenasa Sinhala Grade 1-5 | Zerocast</title>
     <link rel="icon" type="image/png" href="https://zerocastor.com/assets/fav.png">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.ui.min.js"></script>
@@ -16,7 +16,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: #fff; height: 100vh; overflow: hidden; }
 
-        .ambient-bg { position: fixed; inset: 0; background: url('https://api3.viu.lk/api/client/v1/global/images/25667?accessKey=WkVjNWNscFhORDBLCg==') center/cover; filter: blur(80px) brightness(0.2); z-index: 1; transform: scale(1.2); }
+        .ambient-bg { position: fixed; inset: 0; background: url('https://api3.viu.lk/api/client/v1/global/images/25760?accessKey=WkVjNWNscFhORDBLCg==') center/cover; filter: blur(80px) brightness(0.2); z-index: 1; transform: scale(1.2); }
 
         #video-container { position: fixed; inset: 0; width: 100%; height: 100%; background: #000; z-index: 10; display: none; }
         #video-container.active { display: block; }
@@ -62,18 +62,9 @@
 
     <div class="ambient-bg"></div>
 
-    <div id="app-gate">
-        <div class="app-card">
-            <img src="https://api3.viu.lk/api/client/v1/global/images/25667?accessKey=WkVjNWNscFhORDBLCg==" style="height: 60px; margin-bottom: 15px; border-radius: 15px;">
-            <h2 style="font-size: 20px;">Sirasa TV</h2>
-           
-        </div>
-    </div>
+    
 
-    <div id="loader-screen">
-        <div class="app-loader"></div>
-        <div class="loader-text">ZEROCAST</div>
-    </div>
+    
 
     <div id="video-container">
         <div class="player-brand"><img src="https://zerocastor.com/assets/logo.png" alt="Logo"></div>
@@ -83,15 +74,13 @@
     <div class="top-ui" id="ui-top" style="display:none;">
         <div class="control-btn" onclick="location.href='index.php'"><i class="bi bi-chevron-left"></i></div>
         <div style="text-align:center;">
-            <div style="font-weight:700; font-size:16px;">Sirasa TV</div>
+            <div style="font-weight:700; font-size:16px;">Nenasa Sinhala Grade 1-5</div>
             <div id="playback-status" style="font-size:10px; color:var(--accent); font-weight:800; letter-spacing:1px;">LIVE SECURE</div>
         </div>
         <div class="control-btn" onclick="toggleRewind()"><i class="bi bi-clock-history"></i></div>
     </div>
 
-    <div class="fs-btn" id="fs-btn" onclick="toggleFullscreen()">
-        <i class="bi bi-arrows-fullscreen"></i>
-    </div>
+   
 
     <div id="rewind-overlay" onclick="closeRewind()"></div>
     <div class="sheet-rewind" id="rewindSheet">
@@ -115,14 +104,12 @@
         let player, selectedDate, isReady = false, w = 6;
 
         // NEW FEATURE flags from PHP
-        const STREAM_URL = "https:\/\/viu.cyberyakku.com\/viu.mpd\/?id=8";
+        const STREAM_URL = "https:\/\/viu.cyberyakku.com\/viu.mpd\/?id=102";
         const IS_HLS = 0 === 1;
         const HAS_DRM = 1 === 1;
 
-        
+       
 
-        
-    
         async function initPlayer() {
             shaka.polyfill.installAll();
             const video = document.getElementById('video');
@@ -130,7 +117,7 @@
 
             // ONLY configure DRM for DRM channels (MPD/Widevine)
             if (HAS_DRM) {
-                player.configure({ drm: { servers: { 'com.widevine.alpha': 'proxy.php?type=license&id=8' } } });
+                player.configure({ drm: { servers: { 'com.widevine.alpha': 'proxy.php?type=license&id=102' } } });
             } else {
                 player.configure({ drm: { servers: {} } });
             }
@@ -150,7 +137,7 @@
                     await player.load(`proxy.php?type=direct&url=${encodeURIComponent(STREAM_URL)}`);
                 } else {
                     // Existing DASH/MPD flow via proxy manifest (DRM or non-DRM)
-                    await player.load(`proxy.php?type=manifest&id=8`);
+                    await player.load(`proxy.php?type=manifest&id=102`);
                 }
             } catch (e) {
                 location.reload();
@@ -181,7 +168,7 @@
             document.getElementById('loader-screen').style.display = 'flex';
             document.getElementById('playback-status').textContent = "CATCH-UP MODE";
             document.getElementById('playback-status').style.color = "#FF9500";
-            player.load(`proxy.php?type=manifest&id=8&rewind=1&begin=${beginTime}&end=${endTimeAPI}`).catch(() => location.reload());
+            player.load(`proxy.php?type=manifest&id=102&rewind=1&begin=${beginTime}&end=${endTimeAPI}`).catch(() => location.reload());
         }
 
         function toggleFullscreen() {
